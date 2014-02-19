@@ -510,8 +510,10 @@ class Database(object):
         if 'batch' in params and 'id' in res:
             doc1.update({ '_id': res['id']})
         else:
-            doc1.update({'_id': res['id'], '_rev': res['rev']})
-
+            if 'id' in res:
+                doc1['_id'] = res['id']
+            if 'rev' in res:
+                doc1['_rev'] = res['rev']
 
         if schema:
             doc._doc = doc1
